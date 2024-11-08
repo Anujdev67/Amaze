@@ -1,6 +1,6 @@
 package com.hexaware.amazecare.enums;
 
 public enum Role {
-	ADMIN,PATIENT,DOCTOR,EXECUTIVE
+	ADMIN,IN_PATIENT,DOCTOR,EXECUTIVE,OUT_PATIENT
 
 }
