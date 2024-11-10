@@ -24,6 +24,13 @@ public class TestAndScans {
 	@Enumerated(EnumType.STRING)
 	private TestScanStatus status;
 	private LocalDate testOrScanPrescibedon;
+	private String description;
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	@ManyToOne
 	private Doctor doctor;
 	@ManyToOne
@@ -67,7 +74,8 @@ public class TestAndScans {
 	@Override
 	public String toString() {
 		return "TestAndScans [id=" + id + ", type=" + type + ", status=" + status + ", testOrScanPrescibedon="
-				+ testOrScanPrescibedon + ", doctor=" + doctor + ", patient=" + patient + "]";
+				+ testOrScanPrescibedon + ", description=" + description + ", doctor=" + doctor + ", patient=" + patient
+				+ "]";
 	}
 	
 	
