@@ -1,6 +1,7 @@
 package com.hexaware.amazecare.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.hexaware.amazecare.enums.Department;
 
@@ -10,6 +11,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -28,6 +30,16 @@ public class Doctor {
 	
 	@OneToOne
 	private User user;
+	@OneToMany 
+	private List<TestAndScans> testsAndScans;
+
+	public List<TestAndScans> getTestsAndScans() {
+		return testsAndScans;
+	}
+
+	public void setTestsAndScans(List<TestAndScans> testsAndScans) {
+		this.testsAndScans = testsAndScans;
+	}
 
 	public int getId() {
 		return id;

@@ -1,5 +1,6 @@
 package com.hexaware.amazecare.service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -27,6 +28,10 @@ public class PatientService {
 		}
 		Patient patient=optional.get();
 		return patient;
+	}
+	public List<Patient> getAll() {
+	
+		return patientRepository.findAll();
 	}
 
 }
