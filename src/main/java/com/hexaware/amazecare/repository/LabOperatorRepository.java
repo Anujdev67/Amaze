@@ -20,6 +20,8 @@ public interface LabOperatorRepository extends JpaRepository<LabOperator, Intege
 	@Query("SELECT l FROM LabOperator l")
 	List<LabOperator> findAllLabOperators();
 
+	
+
 
 
 

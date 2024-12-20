@@ -40,4 +40,11 @@ public class DoctorService {
 		return appointmentRepository.getAllAppointmentsByDoctor(as,did);
 	}
 
+
+
+	public Doctor findById(int id) {
+	    return doctorRepository.findById(id).orElse(null);
+	}
+
+
 }

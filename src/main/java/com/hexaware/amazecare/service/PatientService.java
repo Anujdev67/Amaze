@@ -33,5 +33,8 @@ public class PatientService {
 	
 		return patientRepository.findAll();
 	}
+	public Patient findById(int id) {
+	    return patientRepository.findById(id).orElse(null);
+	}
 
 }

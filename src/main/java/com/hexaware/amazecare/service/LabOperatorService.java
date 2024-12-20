@@ -68,6 +68,8 @@ public class LabOperatorService {
     public Optional<LabOperator> findByEmail(String email) {
         return labOperatorRepository.findByEmail(email);
     }
+
+   
     
     // public List<LabOperator> getAllLabOperators(Pageable pageable) {
     //return labOperatorRepository.findAll(pageable).toList();

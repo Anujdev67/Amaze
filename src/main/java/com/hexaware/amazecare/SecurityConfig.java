@@ -268,6 +268,9 @@
 //    }
 //}
 
+
+// this is 15-12-2024 
+
 package com.hexaware.amazecare;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -300,28 +303,31 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
-            .cors(Customizer.withDefaults())                             // enabledd cors using customizer
+            .cors(Customizer.withDefaults()) // enabled cors using customizer
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(HttpMethod.POST, "/api/token").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/switch-status/{id}").hasRole("EXECUTIVE")
                 .requestMatchers(HttpMethod.GET, "/api/hello").hasRole("LAB_OPERATOR")
                 .requestMatchers(HttpMethod.POST, "/auth/sign-up").permitAll()
-            	.requestMatchers(HttpMethod.GET, "/auth/user").authenticated()
-            	.requestMatchers(HttpMethod.GET, "/laboperator/testandscans/**").authenticated()
-            	.requestMatchers(HttpMethod.POST, "/laboperator/**").hasAuthority("LAB_OPERATOR")
-            	.requestMatchers(HttpMethod.POST, "/laboperator/upload/lab/image/{id}").authenticated()
+                .requestMatchers(HttpMethod.GET, "/auth/user").authenticated()
+                .requestMatchers(HttpMethod.POST, "/laboperator/simple-report/create").hasAuthority("ROLE_LAB_OPERATOR")
+                .requestMatchers(HttpMethod.GET, "/laboperator/simple-report/all").hasAuthority("ROLE_LAB_OPERATOR")
+                .requestMatchers(HttpMethod.GET, "/laboperator/simple-report/{id}").hasAuthority("ROLE_LAB_OPERATOR")
+                .requestMatchers(HttpMethod.GET, "/laboperator/testandscans/**").authenticated()
+                .requestMatchers(HttpMethod.POST, "/laboperator/**").hasAuthority("ROLE_LAB_OPERATOR")
+                .requestMatchers(HttpMethod.POST, "/laboperator/upload/lab/image/{id}").authenticated()
                 .requestMatchers(HttpMethod.GET, "/laboperator/get/lab/image/{id}").authenticated()
-                .requestMatchers(HttpMethod.GET,"laboperator/patient/all").hasAuthority("LAB_OPERATOR")
-                .requestMatchers(HttpMethod.GET,"/laboperator/testandscans/all").hasAuthority("LAB_OPERATOR") 
+                .requestMatchers(HttpMethod.GET,"/laboperator/patient/all").hasAuthority("ROLE_LAB_OPERATOR")
+                .requestMatchers(HttpMethod.GET,"/laboperator/testandscans/all").hasAuthority("ROLE_LAB_OPERATOR")
                 
                 .anyRequest().permitAll()
-        			) 
-        			.sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            )
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
-        		   .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
 
-        		return http.build();
-        	}
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -341,3 +347,5 @@ public class SecurityConfig {
         return authenticationProvider;
     }
 }
+
+
